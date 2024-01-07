@@ -132,3 +132,26 @@ class K8sNode(Scene):
         k8s_master_group.shift(DOWN)
         self.play(Create(k8s_master_group))
         self.wait(2)
+
+        # label inside the master
+        k8s_master_label_inside = Text("Deployment", font_size=20)
+        # center the label inside the master
+        k8s_master_label_inside.move_to(k8s_master.get_center())
+        self.play(Write(k8s_master_label_inside))
+
+        # Create a rectangle to wrap both of the node groups
+        rectangle = Rectangle(height=2, width=8, color=WHITE)
+        
+        # Convert the rectangle into a dashed version
+        dashed_rectangle = DashedVMobject(rectangle, num_dashes=62, color=WHITE)
+
+        # Display the dashed rectangle
+        self.play(Create(dashed_rectangle))
+        self.wait(2)
+
+        # Create a label for the service
+        service_label = Text("Service", font_size=24)
+        service_label.next_to(dashed_rectangle, UP)
+        self.play(Write(service_label))
+        self.wait(2)
+
